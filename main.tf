@@ -65,7 +65,6 @@ resource "azurerm_network_interface" "network-interface" {
 resource "random_string" "vm-username" {
   length = 10
   special = false
-  upper = false
 }
 
 resource "random_string" "vm-password" {
