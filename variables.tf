@@ -8,7 +8,6 @@ variable "resource_group_name" {
 
 variable vm_flavor {
   description = "virtual machine size (flavor)"
-  default = "Standard_D2s_v3"
 }
 
 variable custom-image-name {
