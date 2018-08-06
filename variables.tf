@@ -21,3 +21,8 @@ variable custom-image-resource-group {
 variable "subnet_id" {
   description = "subnet id controlling vm private address space and nsg"
 }
+
+variable "tags" {
+  type = "map"
+  description = "tags to identify the VM"
+}
