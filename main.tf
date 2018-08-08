@@ -131,5 +131,17 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   tags = "${var.tags}"
+
+  provisioner "file" {
+    source = "script.sh"
+    destination = "/tmp/script.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'invoking provisioner script'",
+      "/tmp/script.sh"
+    ]
+  }
 }
 
