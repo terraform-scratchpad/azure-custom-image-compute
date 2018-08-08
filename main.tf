@@ -75,6 +75,7 @@ resource "random_string" "random-name-suffix" {
   length = 10
   special = false
   upper = false
+  number = false
 }
 
 
