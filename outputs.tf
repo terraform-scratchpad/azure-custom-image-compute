@@ -6,9 +6,9 @@ output "vm-public-ip" {
 }
 
 output "vm-admin-username" {
-  value = "${azurerm_virtual_machine.vm.os_profile.admin_username}"
+  value = "${random_string.vm-username.result}"
 }
 
 output "vm-admin-password" {
-  value = "${azurerm_virtual_machine.vm.os_profile.admin_password}"
+  value = "${random_string.vm-password.result}"
 }
