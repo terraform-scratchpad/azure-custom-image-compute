@@ -22,7 +22,7 @@ data "azurerm_image" "custom-image" {
 # storage account
 #
 resource "azurerm_storage_account" "storage-account" {
-  name                      = "tfstorageaccount${random_string.random-name-suffix.id}"
+  name                      = "tfstorageaccount${random_string.random-name-suffix.result}"
   resource_group_name       = "${var.resource_group_name}"
   location                  = "${var.location}"
   account_replication_type  = "LRS"
@@ -35,7 +35,7 @@ resource "azurerm_storage_account" "storage-account" {
 resource "azurerm_public_ip" "public-ip" {
   location                      = "${var.location}"
   resource_group_name           = "${var.resource_group_name}"
-  name                          = "staging-pip-${random_string.random-name-suffix.id}"
+  name                          = "staging-pip-${random_string.random-name-suffix.result}"
   public_ip_address_allocation  = "Dynamic"
 }
 
@@ -43,7 +43,7 @@ resource "azurerm_public_ip" "public-ip" {
 # data disk
 #
 resource "azurerm_managed_disk" "data-disk" {
-  name                  = "stg-datadisk-${random_string.random-name-suffix.id}"
+  name                  = "stg-datadisk-${random_string.random-name-suffix.result}"
   location              = "${var.location}"
   resource_group_name   = "${var.resource_group_name}"
   storage_account_type  = "Standard_LRS"
@@ -53,12 +53,12 @@ resource "azurerm_managed_disk" "data-disk" {
 
 # network interface
 resource "azurerm_network_interface" "network-interface" {
-  name                            = "nic-${random_string.random-name-suffix.id}"
+  name                            = "nic-${random_string.random-name-suffix.result}"
   location                        = "${var.location}"
   resource_group_name             = "${var.resource_group_name}"
 
   ip_configuration {
-    name                          = "public-ip-cfg-${random_string.random-name-suffix.id}"
+    name                          = "public-ip-cfg-${random_string.random-name-suffix.result}"
     subnet_id                     = "${var.subnet_id}"
     private_ip_address_allocation = "dynamic"
     public_ip_address_id          = "${azurerm_public_ip.public-ip.id}"
@@ -88,7 +88,7 @@ resource "random_string" "vm-password" {
 
 # vm
 resource "azurerm_virtual_machine" "vm" {
-  name                              = "vm-${random_string.random-name-suffix.id}"
+  name                              = "vm-${random_string.random-name-suffix.result}"
   location                          = "${var.location}"
   resource_group_name               = "${var.resource_group_name}"
   network_interface_ids             = ["${azurerm_network_interface.network-interface.id}"]
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   storage_os_disk {
-    name              = "myosdisk-${random_string.random-name-suffix.id}"
+    name              = "myosdisk-${random_string.random-name-suffix.result}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -116,9 +116,9 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   os_profile {
-    computer_name   = "dummy-${random_string.random-name-suffix.id}"
-    admin_username  = "${random_string.vm-username.id}"
-    admin_password  = "${random_string.vm-password.id}"
+    computer_name   = "qa-${random_string.random-name-suffix.result}"
+    admin_username  = "${random_string.vm-username.result}"
+    admin_password  = "${random_string.vm-password.result}"
   }
 
   boot_diagnostics {
