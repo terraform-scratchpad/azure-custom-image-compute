@@ -22,6 +22,10 @@ variable "subnet_id" {
   description = "subnet id controlling vm private address space and nsg"
 }
 
+variable "nsg_id" {
+  description = "NSG created by core infrastrucutre template"
+}
+
 variable "tags" {
   type = "map"
   description = "tags to identify the VM"

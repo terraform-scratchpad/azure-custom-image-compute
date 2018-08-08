@@ -56,6 +56,7 @@ resource "azurerm_network_interface" "network-interface" {
   name                            = "nic-${random_string.random-name-suffix.result}"
   location                        = "${var.location}"
   resource_group_name             = "${var.resource_group_name}"
+  network_security_group_id       = "${var.nsg-id}"
 
   ip_configuration {
     name                          = "public-ip-cfg-${random_string.random-name-suffix.result}"
