@@ -84,7 +84,6 @@ resource "random_string" "random-name-suffix" {
 resource "random_string" "vm-password" {
   length = 16
   special = true
-  override_special = "/@\" "
 }
 
 # vm
