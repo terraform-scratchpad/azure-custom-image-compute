@@ -22,7 +22,7 @@ data "azurerm_image" "custom-image" {
 # storage account
 #
 resource "azurerm_storage_account" "storage-account" {
-  name                      = "tfstorageaccount${random_string.random-name-suffix.result}"
+  name                      = "tfstrgacc${random_string.random-name-suffix.result}"
   resource_group_name       = "${var.resource_group_name}"
   location                  = "${var.location}"
   account_replication_type  = "LRS"
