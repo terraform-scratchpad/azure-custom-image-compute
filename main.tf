@@ -146,7 +146,7 @@ resource "azurerm_virtual_machine" "vm" {
   provisioner "remote-exec" {
     inline = [
       "echo 'invoking provisioner script'",
-      "/tmp/script.sh"
+      "source /tmp/script.sh"
     ]
   }
 }
