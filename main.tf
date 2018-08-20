@@ -11,14 +11,6 @@ provider "random" {
 }
 
 #
-# data source used to read the custom image id
-#
-data "azurerm_image" "custom-image" {
-  name                = "${var.custom-image-name}"
-  resource_group_name = "${var.custom-image-resource-group}"
-}
-
-#
 # storage account
 #
 resource "azurerm_storage_account" "storage-account" {
@@ -39,19 +31,18 @@ resource "azurerm_public_ip" "public-ip" {
   public_ip_address_allocation  = "Dynamic"
 }
 
-#
-# data disk
-#
 resource "azurerm_managed_disk" "data-disk" {
   name                  = "stg-datadisk-${random_string.random-name-suffix.result}"
   location              = "${var.location}"
   resource_group_name   = "${var.resource_group_name}"
   storage_account_type  = "Standard_LRS"
   create_option         = "Empty"
-  disk_size_gb          = "50"
+  disk_size_gb          = "${var.disk_size_gb}"
 }
 
+#
 # network interface
+#
 resource "azurerm_network_interface" "network-interface" {
   name                            = "nic-${random_string.random-name-suffix.result}"
   location                        = "${var.location}"
@@ -64,26 +55,6 @@ resource "azurerm_network_interface" "network-interface" {
     private_ip_address_allocation = "dynamic"
     public_ip_address_id          = "${azurerm_public_ip.public-ip.id}"
   }
-}
-
-# generate random username and password
-resource "random_string" "vm-username" {
-  length = 10
-  special = false
-}
-
-resource "random_string" "random-name-suffix" {
-  length = 10
-  special = false
-  upper = false
-  number = false
-  lower = true
-}
-
-
-resource "random_string" "vm-password" {
-  length = 16
-  special = true
 }
 
 # vm

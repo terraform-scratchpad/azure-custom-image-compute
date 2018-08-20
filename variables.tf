@@ -30,3 +30,10 @@ variable "tags" {
   type = "map"
   description = "tags to identify the VM"
 }
+
+#
+# data disk
+#
+variable disk_size_gb {
+  default = "50"
+}
