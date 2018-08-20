@@ -19,6 +19,9 @@ resource "azurerm_public_ip" "public-ip" {
   public_ip_address_allocation  = "Dynamic"
 }
 
+#
+# data disk
+#
 resource "azurerm_managed_disk" "data-disk" {
   name                  = "stg-datadisk-${random_string.random-name-suffix.result}"
   location              = "${var.location}"
@@ -45,7 +48,21 @@ resource "azurerm_network_interface" "network-interface" {
   }
 }
 
-# vm
+#
+# core storage account
+#
+resource "azurerm_storage_account" "core-storage-account" {
+  name                      = "corestorageacc${random_string.random-name-suffix.result}"
+  resource_group_name       = "${var.resource_group_name}"
+  location                  = "${var.location}"
+  account_replication_type  = "LRS"
+  account_tier              = "Standard"
+  tags                      = "${var.tags}"
+}
+
+#
+# vm from custom image (see packer template)
+#
 resource "azurerm_virtual_machine" "vm" {
   name                              = "vm-${random_string.random-name-suffix.result}"
   location                          = "${var.location}"
@@ -84,7 +101,7 @@ resource "azurerm_virtual_machine" "vm" {
 
   boot_diagnostics {
     enabled = true
-    storage_uri = "${data.azurerm_storage_account.core-storage-account.primary_blob_endpoint}"
+    storage_uri = "${azurerm_storage_account.core-storage-account.primary_blob_endpoint}"
   }
 
   os_profile_linux_config {
@@ -97,4 +114,3 @@ resource "azurerm_virtual_machine" "vm" {
 
   tags = "${var.tags}"
 }
-
