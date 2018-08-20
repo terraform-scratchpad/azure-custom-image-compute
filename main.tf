@@ -11,17 +11,6 @@ provider "random" {
 }
 
 #
-# storage account
-#
-resource "azurerm_storage_account" "storage-account" {
-  name                      = "tfstrgacc${random_string.random-name-suffix.result}"
-  resource_group_name       = "${var.resource_group_name}"
-  location                  = "${var.location}"
-  account_replication_type  = "LRS"
-  account_tier              = "Standard"
-}
-
-#
 # public ip
 #
 resource "azurerm_public_ip" "public-ip" {
@@ -96,7 +85,7 @@ resource "azurerm_virtual_machine" "vm" {
 
   boot_diagnostics {
     enabled = true
-    storage_uri = "${azurerm_storage_account.storage-account.primary_blob_endpoint}"
+    storage_uri = "${data.azurerm_storage_account.core-storage-account.primary_blob_endpoint}"
   }
 
   os_profile_linux_config {
