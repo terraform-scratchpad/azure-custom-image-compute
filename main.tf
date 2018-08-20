@@ -1,7 +1,6 @@
 #
 # Create a VM from a custom image
 #
-
 provider "azurerm" {
   version = "~> 1.12.0"
 }
