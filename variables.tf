@@ -10,8 +10,8 @@ variable vm_flavor {
   description = "virtual machine size (flavor)"
 }
 
-variable custom-image-name {
-  description = "name of the custom image to use as boot Os"
+variable custom-image-id {
+  description = "custom image id"
 }
 
 variable custom-image-resource-group {

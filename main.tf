@@ -73,7 +73,7 @@ resource "azurerm_virtual_machine" "vm" {
   delete_data_disks_on_termination  = true
 
   storage_image_reference {
-    id="${data.azurerm_image.custom-image.id}"
+    id="${var.custom-image-id}"
   }
 
   storage_os_disk {
