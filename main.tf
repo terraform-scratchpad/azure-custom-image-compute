@@ -105,13 +105,7 @@ resource "azurerm_virtual_machine" "vm" {
     storage_uri = "${azurerm_storage_account.core-storage-account.primary_blob_endpoint}"
   }
 
-  os_profile_linux_config {
-    disable_password_authentication = false
-    ssh_keys {
-      key_data = "${file("~/.ssh/id_rsa.pub")}"
-      path = "/home/${random_string.vm-username.result}/.ssh/authorized_keys"
-    }
-  }
+
 
   tags = "${var.tags}"
 }
