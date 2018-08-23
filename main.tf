@@ -95,7 +95,7 @@ resource "azurerm_virtual_machine" "vm" {
     computer_name   = "qa-${random_string.random-name-suffix.result}"
     admin_username  = "${random_string.vm-username.result}"
     # admin_password  = "${random_string.vm-password.result}"
-    admin_password  = "Adminpasswor1234"
+    admin_password  = "${random_string.vm-password.result}"
   }
 
 
