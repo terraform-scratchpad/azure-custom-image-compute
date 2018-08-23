@@ -105,7 +105,10 @@ resource "azurerm_virtual_machine" "vm" {
     storage_uri = "${azurerm_storage_account.core-storage-account.primary_blob_endpoint}"
   }
 
+  os_profile_linux_config {
+    disable_password_authentication = false
 
+  }
 
   tags = "${var.tags}"
 }
