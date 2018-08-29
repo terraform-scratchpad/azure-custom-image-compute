@@ -12,3 +12,7 @@ output "vm-admin-username" {
 output "vm-admin-password" {
   value = "${random_string.vm-password.result}"
 }
+
+output "vm-admin-ip" {
+  value = "${azurerm_public_ip.public-ip.ip_address}"
+}
