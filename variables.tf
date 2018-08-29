@@ -37,3 +37,14 @@ variable "tags" {
 variable disk_size_gb {
   default = "50"
 }
+
+#
+# if true vm name is randomly generated, else use the indicated value
+#
+variable "vm_name_is_random" {
+  description = "if value is 1 then the vm name is randomly generated, else use vm_name value"
+}
+
+variable "vm_name" {
+  description = "used as vm name if vm_name_is_random hase value=1"
+}

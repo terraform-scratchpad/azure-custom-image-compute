@@ -64,7 +64,7 @@ resource "azurerm_storage_account" "core-storage-account" {
 # vm from custom image (see packer template)
 #
 resource "azurerm_virtual_machine" "vm" {
-  name                              = "vm-${random_string.random-name-suffix.result}"
+  name                              = "${var.vm_name_is_random == "1" ? concat("vm-",random_string.random-name-suffix.result) : var.vm_name}"
   location                          = "${var.location}"
   resource_group_name               = "${var.resource_group_name}"
   network_interface_ids             = ["${azurerm_network_interface.network-interface.id}"]
